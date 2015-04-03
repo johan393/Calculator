@@ -426,13 +426,13 @@ public class Main {
         }
         if(termbuf.equals("")){
             nput.add("(");
-            nput.add(String.valueOf(Math.E));
+            nput.add("e");
             nput.add(")");      
         }
         else{
             nput.add(termbuf);
             nput.add("(");
-            nput.add(String.valueOf(Math.E));
+            nput.add("e");
             nput.add(")");
             termbuf="";
 
@@ -456,7 +456,7 @@ public class Main {
         else{
             nput.add(termbuf);
             nput.add("(");
-            nput.add(String.valueOf(Math.PI));
+            nput.add("π");
             nput.add(")");
             termbuf="";
 
@@ -1931,9 +1931,17 @@ if(nput.size()>0&&!isSymbola(nput.get(nput.size()-1))&&termbuf.equals("")){
         termbuf="";
         results.setText("");
         oput = evaluate((ArrayList)nput.clone());
-        Iterator i = oput.iterator();
-        while(i.hasNext()){
-            results.setText(results.getText()+i.next());
+
+        for(int i=0; i<oput.size();i++){
+               double val = Double.parseDouble((String)oput.get(i));
+               if(hasDecimal(val)){
+               results.setText(results.getText()+Double.toString(val)); 
+               }
+               else{
+                   results.setText(results.getText()+(int)val);
+               }
+               
+            
 
         }
         newstring=true;
@@ -2037,8 +2045,16 @@ if(nput.size()>0&&!isSymbola(nput.get(nput.size()-1))&&termbuf.equals("")){
         }
     }
     i=0;
+        
     
     while(i<input.size()){
+        
+        if(input.get(i).equals("π")){
+            input.set(i,String.valueOf(Math.PI));
+        }
+        if(input.get(i).equals("e")){
+            input.set(i,String.valueOf(Math.E));
+        }
         if(input.get(i).equals("abs")){
             double b = Double.parseDouble((String)input.get(i+1));
             input.set(i,String.valueOf(Math.abs(b)));
@@ -2306,8 +2322,8 @@ if(nput.size()>0&&!isSymbola(nput.get(nput.size()-1))&&termbuf.equals("")){
             input.remove(i);
             }
             
-            i=input.indexOf("+");
-            q=input.indexOf("-");
+            i=input.indexOf("*");
+            q=input.indexOf("/");
         }
      i=input.indexOf("+");
      q=input.indexOf("-");
@@ -2512,6 +2528,15 @@ public static double fact (double i){
         return fact;
         }
     }
+
+public static boolean hasDecimal (double i){
+    if((Math.round(i*1000000.0)/1000000.0)%1!=0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 }
     
 
