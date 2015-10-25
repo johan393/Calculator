@@ -336,7 +336,20 @@ public class Main {
            // System.out.print(nput);
             entries.setText("");
         for(int i=0;i<nput.size(); i++){
-            entries.setText(entries.getText() + nput.get(i));
+            String dat = nput.get(i);
+            try{
+            double num = Double.parseDouble(dat);
+            if(!hasDecimal(num)){
+                int f = (int)num;
+                entries.setText(entries.getText() + Integer.toString(f));
+            }
+            else{
+                entries.setText(entries.getText() + nput.get(i));
+            }
+            }
+            catch(Exception e){
+                entries.setText(entries.getText() + nput.get(i));
+            }
         }
         }// TODO add your handling code here:
         else{
@@ -513,12 +526,22 @@ public class Main {
         }
         eqlB.setText(")");
         }
+            else{
         if(newstring){
             nput=new ArrayList(10);
             if(!results.getText().equals("invalid syntax")){
             nput.addAll(oput);
-            entries.setText(oput.get(0)+" nCr ");
+            if(hasDecimal(Double.parseDouble(oput.get(0)))){    
+                entries.setText(oput.get(0)+" nCr ");
             }
+            else{
+                entries.setText(Integer.toString((int)Double.parseDouble(oput.get(0))) + " nCr ");
+            }
+            }
+            else{
+                entries.setText(" nCr ");
+            }
+
             newstring=false;
             parenmatch=0;
         }
@@ -535,7 +558,7 @@ public class Main {
 
         }
         }
-    
+                }
             }
         });  
       
@@ -581,7 +604,14 @@ public class Main {
           else{
             if(newstring){
             nput=new ArrayList(10);
-            entries.setText("!");
+            nput.addAll(oput);
+            if(hasDecimal(Double.parseDouble(oput.get(0)))){    
+                entries.setText(oput.get(0)+"!");
+            }
+            else{
+                entries.setText(Integer.toString((int)Double.parseDouble(oput.get(0))) + "!");
+            }
+            
             newstring=false;
             parenmatch=0;
         }
@@ -647,7 +677,15 @@ public class Main {
             nput=new ArrayList(10);
             if(!results.getText().equals("invalid syntax")){
             nput.addAll(oput);
-            entries.setText(oput.get(0)+" nPr ");
+            if(hasDecimal(Double.parseDouble(oput.get(0)))){    
+                entries.setText(oput.get(0)+" nPr ");
+            }
+            else{
+                entries.setText(Integer.toString((int)Double.parseDouble(oput.get(0))) + " nPr ");
+            }
+            }
+            else{
+                entries.setText(" nPr ");
             }
             newstring=false;
             parenmatch=0;
@@ -736,8 +774,17 @@ public class Main {
             nput=new ArrayList(10);
             if(!(oput.get(0).equals("() bad math operation")||oput.get(0).equals("invalid syntax"))){
             nput.addAll(oput);
+            if(hasDecimal(Double.parseDouble(oput.get(0)))){    
+                entries.setText(oput.get(0)+"ⁿ√");
             }
-            entries.setText(oput.get(0)+"ⁿ√");
+            else{
+                entries.setText(Integer.toString((int)Double.parseDouble(oput.get(0))) + "ⁿ√");
+            }
+            }
+            else{
+                entries.setText("ⁿ√");
+            }
+            
             newstring=false;
             parenmatch=0;
         }
@@ -765,7 +812,15 @@ public class Main {
             nput=new ArrayList(10);
             if(!results.getText().equals("invalid syntax")){
             nput.addAll(oput);
-            entries.setText(oput.get(0)+"^");
+            if(hasDecimal(Double.parseDouble(oput.get(0)))){    
+                entries.setText(oput.get(0)+"^");
+            }
+            else{
+                entries.setText(Integer.toString((int)Double.parseDouble(oput.get(0))) + "^");
+            }
+            }
+            else{
+                entries.setText("^");
             }
             newstring=false;
             parenmatch=0;
@@ -793,7 +848,15 @@ public class Main {
             nput=new ArrayList(10);
             if(!results.getText().equals("invalid syntax")){
             nput.addAll(oput);
-            entries.setText(oput.get(0)+"/");
+            if(hasDecimal(Double.parseDouble(oput.get(0)))){    
+                entries.setText(oput.get(0)+"/");
+            }
+            else{
+                entries.setText(Integer.toString((int)Double.parseDouble(oput.get(0))) + "/");
+            }
+            }
+            else{
+                entries.setText("/");
             }
             newstring=false;
             parenmatch=0;
@@ -1062,7 +1125,15 @@ public class Main {
             nput=new ArrayList(10);
             if(!results.getText().equals("invalid syntax")){
             nput.addAll(oput);
-            entries.setText(oput.get(0)+"*");
+            if(hasDecimal(Double.parseDouble(oput.get(0)))){    
+                entries.setText(oput.get(0)+"*");
+            }
+            else{
+                entries.setText(Integer.toString((int)Double.parseDouble(oput.get(0))) + "*");
+            }
+            }
+            else{
+                entries.setText("*");
             }
             
             newstring=false;
@@ -1368,10 +1439,13 @@ public class Main {
            if(!second){
         if(newstring){
             nput=new ArrayList(10);
-            if(!results.getText().equals("invalid syntax")){
+            /*if(!results.getText().equals("invalid syntax")){
             nput.addAll(oput);
             entries.setText(oput.get(0)+"-");
             }
+            else{*/
+                entries.setText("-");
+            //}
             newstring=false;
             parenmatch=0;
         }
@@ -1683,7 +1757,15 @@ if(nput.size()>0&&!isSymbola(nput.get(nput.size()-1))&&termbuf.equals("")){
             nput=new ArrayList(10);
             if(!results.getText().equals("invalid syntax")){
             nput.addAll(oput);
+            if(hasDecimal(Double.parseDouble(oput.get(0)))){    
             entries.setText(oput.get(0)+"+");
+            }
+            else{
+                entries.setText(Integer.toString((int)Double.parseDouble(oput.get(0))) + "+");
+            }
+            }
+            else{
+                entries.setText("+");
             }
             newstring=false;
             parenmatch=0;
@@ -1752,26 +1834,29 @@ if(nput.size()>0&&!isSymbola(nput.get(nput.size()-1))&&termbuf.equals("")){
         if(second==false){
             if(newstring){
                 
-                if(!(oput.get(0).equals("() bad math operation")||oput.get(0).equals("invalid syntax"))){
+                if(!results.getText().equals("invalid syntax")){
                     nput=new ArrayList(10);
                 entries.setText("("+results.getText()+ ")");
-                }
-                else{
-                    results.setText("unable to use ans");
-                }
                 newstring=false;
                 parenmatch=0;
+                }
+                else{
+                    results.setText("invalid syntax");
+                }
+                
             }
             else{
-             if(!(results.getText().equals("")||(oput.get(0).equals("() bad math operation")||oput.get(0).equals("invalid syntax")))){
+             if(!(results.getText().equals("")||results.getText().equals("invalid syntax"))){
                     entries.setText(entries.getText() + "(" + results.getText() + ")");
              }
             }
+            if(!(results.getText().equals("")||results.getText().equals("invalid syntax"))){
             if(!termbuf.equals("")){
                 nput.add(termbuf);
                 termbuf = "";
             }
-      if(!(results.getText().equals("")||(oput.get(0).equals("() bad math operation")||oput.get(0).equals("invalid syntax")))){
+            }
+      if(!(results.getText().equals("")||results.getText().equals("invalid syntax"))){
                 nput.add("(");
                 nput.addAll(oput); 
                 nput.add(")");
@@ -1892,7 +1977,7 @@ if(nput.size()>0&&!isSymbola(nput.get(nput.size()-1))&&termbuf.equals("")){
             }
              sto = true;
              rec=true;
-             entries.setText("Choose recall location(0-9)  ");
+             entries.setText("Recall stored value at 0-9  ");
              second = !second;
     if(second){
     ansB.setText("Store");
@@ -2038,6 +2123,12 @@ if(nput.size()>0&&!isSymbola(nput.get(nput.size()-1))&&termbuf.equals("")){
                    input.set(i, String.valueOf(-1*Double.parseDouble((String)input.get(i))));
                    input.remove(i-1);
                   }
+                  }
+                  else if(i==1){
+                      if(input.get(0).equals("-")){
+                         input.set(i, String.valueOf(-1*Double.parseDouble((String)input.get(i))));
+                         input.remove(i-1); 
+                      }
                   }
                   if(!isSymbola(test)){
                       input.add(i,"*");
